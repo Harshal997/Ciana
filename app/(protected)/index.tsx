@@ -1,12 +1,8 @@
-import React from 'react'
-import { Text, View } from 'react-native'
+import Session from "@/screens/Session";
+import React from "react";
 
 const index = () => {
-  return (
-    <View>
-      <Text>Protected</Text>
-    </View>
-  )
-}
+  return <Session />;
+};
 
-export default index
+export default index;
