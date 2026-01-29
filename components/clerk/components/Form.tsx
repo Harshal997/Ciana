@@ -1,32 +1,35 @@
-import Gradient from "@/components/Gradient"
-import { StyleSheet, Text, View } from "react-native"
+import { colors } from "@/components/constants/colors";
+import Gradient from "@/components/Gradient";
+import { StyleSheet, Text, View } from "react-native";
 
 interface FormProps {
-  title: string
-  subtitle?: string
-  children: React.ReactNode
-  headerChildren?: React.ReactNode
+  title: string;
+  subtitle?: string;
+  children: React.ReactNode;
+  headerChildren?: React.ReactNode;
 }
 
 export function Form({ title, subtitle, children, headerChildren }: FormProps) {
   return (
     <View style={styles.container}>
-      <Gradient isSpeaking={false} />
+      <Gradient
+        isAuth={true}
+        gradient={[colors.teal, colors.lightBlue, colors.mediumBlue]}
+        isSpeaking={false}
+      />
       <View style={styles.contentWrapper}>
         <View style={styles.headerContainer}>
           <Text style={styles.headerTitle}>{title}</Text>
           {subtitle && <Text style={styles.headerSubtitle}>{subtitle}</Text>}
           {headerChildren}
         </View>
-        <View style={styles.formContainer}>
-          {children}
-        </View>
+        <View style={styles.formContainer}>{children}</View>
       </View>
     </View>
-  )
+  );
 }
 
-export default Form
+export default Form;
 
 const styles = StyleSheet.create({
   container: {
@@ -51,7 +54,7 @@ const styles = StyleSheet.create({
     color: "#424242",
     textAlign: "center",
     lineHeight: 34,
-    marginBottom: 4
+    marginBottom: 4,
   },
   headerSubtitle: {
     fontSize: 16,

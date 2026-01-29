@@ -8,18 +8,21 @@ import {
   useAnimatedValue,
   View,
 } from "react-native";
-import { colors } from "./constants/colors";
 
 interface GradientProps {
+  gradient: readonly [string, string, string];
   isSpeaking?: boolean;
   isQuite?: boolean;
+  isAuth?: boolean;
   toTop?: boolean;
   toBottom?: boolean;
 }
 
 const Gradient = ({
+  gradient,
   isSpeaking = false,
   isQuite,
+  isAuth,
   toTop,
   toBottom,
 }: GradientProps) => {
@@ -28,40 +31,51 @@ const Gradient = ({
   const scale = useAnimatedValue(0);
   const scaleLoop = useAnimatedValue(1);
 
-  const translateAnim = (easingFn: (value: number) => number) => {
+  const translateAnim = (
+    easingFn: (value: number) => number,
+    animation: string,
+  ) => {
     Animated.timing(translateY, {
       toValue: 1,
-      duration: 1200,
+      duration: isSpeaking ? 800 : 1200,
       easing: easingFn,
       useNativeDriver: true,
     }).start(() => {
-      if(isSpeaking) {
+      if (animation === "second" && isSpeaking) {
         scaleLoopAnim(Easing.linear);
-      } else {
-        scaleAnim(Easing.inOut(Easing.ease));
+      } else if (!isSpeaking && animation === "first") {
+        scaleAnim(isAuth ? 1.2 : 2, Easing.linear, "none");
       }
     });
   };
 
-  const scaleAnim = (easingFn: (value: number) => number) => {
+  const scaleAnim = (
+    scaleTo: number,
+    easingFn: (value: number) => number,
+    animation: string,
+  ) => {
     Animated.timing(scale, {
-      toValue: 1.8,
+      toValue: scaleTo,
       duration: 2000,
       easing: easingFn,
       useNativeDriver: true,
-    }).start();
+    }).start(() => {
+      if (animation === "first" && isSpeaking) {
+        translateAnim(Easing.inOut(Easing.ease), "second");
+      }
+    });
   };
 
   const scaleLoopAnim = (easingFn: (value: number) => number) => {
     const anim = Animated.loop(
       Animated.sequence([
         Animated.timing(scaleLoop, {
-          toValue: 1.8,
+          toValue: 1.4,
           duration: 1000,
           easing: easingFn,
           useNativeDriver: true,
         }),
-        Animated.timing(scaleLoop, {  
+        Animated.timing(scaleLoop, {
           toValue: 1,
           duration: 1000,
           easing: easingFn,
@@ -70,27 +84,33 @@ const Gradient = ({
       ]),
       {
         resetBeforeIteration: true,
-      }
+      },
     );
     anim.start();
   };
 
   const startAnimations = () => {
-    translateAnim(Easing.ease);
+    translateY.setValue(0);
+    scale.setValue(0);
+    scaleLoop.setValue(1);
     if (isSpeaking) {
-      // scaleLoopAnim(Easing.ease);
-      // return;
+      scaleAnim(1, Easing.linear, "first");
+    } else {
+      translateAnim(Easing.inOut(Easing.ease), "first");
     }
-    // scaleAnim(Easing.inOut(Easing.ease));
   };
 
   useEffect(() => {
     startAnimations();
-  }, []);
+  }, [isSpeaking]);
 
   const interpolateHeight = translateY.interpolate({
     inputRange: [0, 1],
-    outputRange: isSpeaking ? [height / 2, height-100] : [height / 2, 0],
+    outputRange: isSpeaking
+      ? [0, height - 100]
+      : toBottom
+        ? [height / 2, 0]
+        : [height, 0],
   });
 
   const interpolateScale = scale.interpolate({
@@ -117,27 +137,25 @@ const Gradient = ({
         ]}
       >
         <LinearGradient
-          colors={[colors.teal, colors.lightBlue]}
+          colors={gradient}
           start={{ x: 1, y: 0 }}
           end={{ x: 0, y: 1 }}
           style={[
             styles.gradient,
             {
-              height: 120,
-              width: 120,
+              height: 150,
+              width: 150,
               justifyContent: "center",
-              filter: "blur(11px)",
+              filter: "blur(10px)",
               alignItems: "center",
             },
           ]}
         >
           <LinearGradient
-            colors={[colors.mediumBlue, colors.teal]}
+            colors={gradient}
             start={{ x: 0, y: 1 }}
             end={{ x: 1, y: 0 }}
-            style={[
-              styles.gradient,
-            ]}
+            style={[styles.gradient, { filter: "blur(9px)" }]}
           ></LinearGradient>
         </LinearGradient>
       </Animated.View>
@@ -147,8 +165,8 @@ const Gradient = ({
 
 const styles = StyleSheet.create({
   container: {
-    height: 100,
-    width: 100,
+    height: 160,
+    width: 160,
     // filter: 'blur(18px)',
     alignSelf: "center",
     borderRadius: 100,
@@ -157,8 +175,8 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   gradient: {
-    height: 65,
-    width: 65,
+    height: 80,
+    width: 80,
     borderRadius: 100,
   },
 });
