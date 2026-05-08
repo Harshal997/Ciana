@@ -1,50 +1,67 @@
-# Welcome to your Expo app 👋
+# Ciana 🌙
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Ciana is a modern AI-powered meditation and relaxation app built with React Native and Expo, designed to create a calming and immersive wellness experience through beautiful visuals, smooth animations, and intelligent voice interactions.
 
-## Get started
+The app combines meditation, mindfulness, ambient experiences, and AI assistance into a single elegant mobile experience.
 
-1. Install dependencies
+---
 
-   ```bash
-   npm install
-   ```
+## ✨ Features
 
-2. Start the app
+### 🧘 Meditation & Relaxation
+- Calm and immersive meditation experience
+- Multiple pleasant visual themes
+- Relaxing UI focused on mindfulness and peace
+- Smooth transitions and interactive animations
 
-   ```bash
-   npx expo start
-   ```
+### 🎨 Beautiful Animations
+- Built using React Native Reanimated
+- Fluid micro-interactions
 
-In the output, you'll find options to open the app in a
+### 🤖 AI Personal Relaxation Agent
+Integrated with ElevenLabs AI voice technology.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+The AI assistant can:
+- Talk with users naturally
+- Help users relax and meditate
+- Perform device-related tasks
+- Increase/decrease brightness
+- Assist with productivity and wellness interactions
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+More intelligent AI features are currently in development.
 
-## Get a fresh project
+### ☁️ Backend & Authentication
+Powered by Supabase for:
+- Authentication
+- Database
+- Realtime capabilities
+- User data management
 
-When you're ready, run:
+---
 
-```bash
-npm run reset-project
-```
+# 📱 Tech Stack
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Frontend
+- React Native
+- Expo
+- TypeScript
+- React Native Reanimated
 
-## Learn more
+## Backend & Services
+- Supabase
+- ElevenLabs AI
 
-To learn more about developing your project with Expo, look at the following resources:
+---
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+# 🚀 Getting Started
 
-## Join the community
+## Prerequisites
 
-Join our community of developers creating universal apps.
+Make sure you have installed:
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- Node.js
+- Expo CLI
+- Android Studio / Xcode
+- Git
+
+---
